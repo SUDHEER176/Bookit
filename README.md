@@ -196,29 +196,9 @@ npm start
 - Configure CORS settings for your domain
 - Consider using a process manager like PM2 for the backend
 
-## 🤝 Contributing
-
-Contributions are welcome! This project demonstrates:
-
-- Clean code architecture
-- Type-safe development
-- Modern React patterns
-- RESTful API design
-- Database modeling
-
-## 📝 Technical Decisions
-
-- **Vite over CRA**: Faster builds and better DX
-- **Supabase**: Managed PostgreSQL with excellent TypeScript support
-- **Monorepo Structure**: Clear separation while keeping related code together
-- **shadcn/ui**: Copy-paste components for full customization control
-
-## 📄 License
-
-This project is available for portfolio and educational purposes.
-
 ---
 
 **Built with** ❤️ **using React, TypeScript, and Node.js**
 
 *This project showcases full-stack development skills including system design, API development, database modeling, and modern frontend architecture.*
+
