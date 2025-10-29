@@ -89,19 +89,19 @@ const ExperienceDetails = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container px-4 md:px-8 py-8">
+      <main className="container px-4 md:px-8 py-6 md:py-8">
         <Button
           variant="ghost"
           onClick={() => navigate("/")}
-          className="mb-6 -ml-4"
+          className="mb-4 md:mb-6 -ml-2 md:-ml-4"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Details
         </Button>
 
-        <div className="grid lg:grid-cols-[1fr,400px] gap-8">
-          <div className="flex flex-col items-start gap-8 w-[765px]">
-            <div className="relative aspect-[16/9] rounded-xl overflow-hidden w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr,400px] gap-6 md:gap-8">
+          <div className="flex flex-col items-start gap-6 md:gap-8 w-full">
+            <div className="relative aspect-[16/9] md:aspect-[16/9] rounded-xl overflow-hidden w-full">
               <img
                 src={experience.image}
                 alt={experience.title}
@@ -109,7 +109,7 @@ const ExperienceDetails = () => {
               />
             </div>
 
-            <div className="flex flex-col items-start gap-4 w-full">
+            <div className="flex flex-col items-start gap-3 md:gap-4 w-full">
               <h1 className="text-2xl font-medium text-[#161616] font-inter leading-8 w-full">
                 {experience.title}
               </h1>
@@ -118,11 +118,11 @@ const ExperienceDetails = () => {
               </p>
             </div>
 
-            <div className="flex flex-col items-start gap-3 w-[389px]">
+            <div className="flex flex-col items-start gap-3 w-full">
               <h2 className="text-lg font-medium text-[#161616] font-inter leading-[22px] w-full">
                 Choose date
               </h2>
-              <div className="flex gap-4">
+              <div className="flex gap-2 md:gap-4 overflow-x-auto no-scrollbar w-full pb-1">
                 {availableDates.length === 0 ? (
                   <span className="text-sm text-muted-foreground">No dates available</span>
                 ) : availableDates.map((dateOption) => (
@@ -132,7 +132,7 @@ const ExperienceDetails = () => {
                       setSelectedDate(dateOption.date);
                       setSelectedTime(dateOption.times[0]);
                     }}
-                    className={`h-[34px] px-3 py-2 rounded font-inter text-sm ${
+                    className={`h-[34px] px-3 py-2 rounded font-inter text-sm whitespace-nowrap ${
                       selectedDate === dateOption.date
                         ? "bg-[#FFD643] text-[#161616] border-none"
                         : "border border-[#BDBDBD] text-[#838383] bg-transparent"
@@ -144,12 +144,12 @@ const ExperienceDetails = () => {
               </div>
             </div>
 
-            <div className="flex flex-col items-start gap-3 w-[512px]">
+            <div className="flex flex-col items-start gap-3 w-full">
               <h2 className="text-lg font-medium text-[#161616] font-inter leading-[22px] w-full">
                 Choose time
               </h2>
               <div className="flex flex-col gap-3 w-full">
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-2 md:gap-4">
                   {(availableDates.find((d) => d.date === selectedDate)?.times || []).map((time, index) => (
                       <Button
                         key={time}
@@ -192,9 +192,9 @@ const ExperienceDetails = () => {
             </div>
           </div>
 
-          <div>
-            <Card className="sticky top-24">
-              <CardContent className="p-6 space-y-4">
+          <div className="w-full">
+            <Card className="lg:sticky lg:top-24">
+              <CardContent className="p-4 md:p-6 space-y-4">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Starts at</span>
                   <span className="text-2xl font-bold">₹{experience.price}</span>
@@ -202,7 +202,7 @@ const ExperienceDetails = () => {
 
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Quantity</span>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 md:gap-3">
                     <Button
                       size="icon"
                       variant="outline"
