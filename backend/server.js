@@ -21,16 +21,18 @@ const experiences = [
   }
 ];
 
-// GET /experiences
-app.get('/experiences', (req, res) => {
+// GET /experiences (support both /experiences and /api/experiences)
+const listExperiences = (req, res) => {
   res.json({
     status: 'success',
     data: experiences
   });
-});
+};
+app.get('/experiences', listExperiences);
+app.get('/api/experiences', listExperiences);
 
-// GET /experiences/:id
-app.get('/experiences/:id', (req, res) => {
+// GET /experiences/:id (support both /experiences/:id and /api/experiences/:id)
+const getExperienceById = (req, res) => {
   const experience = experiences.find(exp => exp.id === req.params.id);
   
   if (!experience) {
@@ -58,10 +60,12 @@ app.get('/experiences/:id', (req, res) => {
       ]
     }
   });
-});
+};
+app.get('/experiences/:id', getExperienceById);
+app.get('/api/experiences/:id', getExperienceById);
 
-// POST /bookings
-app.post('/bookings', (req, res) => {
+// POST /bookings (support both /bookings and /api/bookings)
+const createBooking = (req, res) => {
   const { experienceId, date, time, quantity, customerDetails, promoCode, subtotal, taxes, total } = req.body;
 
   // Validate required fields
@@ -100,10 +104,12 @@ app.post('/bookings', (req, res) => {
       amount: booking.total
     }
   });
-});
+};
+app.post('/bookings', createBooking);
+app.post('/api/bookings', createBooking);
 
-// POST /promo/validate
-app.post('/promo/validate', (req, res) => {
+// POST /promo/validate (support both /promo/validate and /api/promo/validate)
+const validatePromo = (req, res) => {
   const { code, subtotal } = req.body;
 
   // Define available promo codes
@@ -136,11 +142,33 @@ app.post('/promo/validate', (req, res) => {
       discountAmount
     }
   });
-});
+};
+app.post('/promo/validate', validatePromo);
+app.post('/api/promo/validate', validatePromo);
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
+// Health check endpoint (support both /health and /api/health)
+const health = (req, res) => res.json({ status: 'ok' });
+app.get('/health', health);
+app.get('/api/health', health);
+
+// 404 handler for undefined routes
+app.use((req, res) => {
+  res.status(404).json({
+    status: 'error',
+    message: `Route not found: ${req.method} ${req.path}`,
+    availableRoutes: [
+      'GET /health',
+      'GET /api/health',
+      'GET /experiences',
+      'GET /experiences/:id',
+      'GET /api/experiences',
+      'GET /api/experiences/:id',
+      'POST /bookings',
+      'POST /api/bookings',
+      'POST /promo/validate',
+      'POST /api/promo/validate'
+    ]
+  });
 });
 
 app.listen(port, () => {
